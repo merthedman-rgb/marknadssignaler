@@ -37,5 +37,18 @@
     "ma50": 29430.13,
     "rsi": 50.62,
     "macd_hist": -0.06
+  },
+  {
+    "time_utc": "2026-09-09 18:42",
+    "key": "nasdaq",
+    "label": "Nasdaq US Tech 100",
+    "from": "neutral",
+    "to": "long",
+    "price": 29440.22,
+    "unit": "p",
+    "ma20": 29433.71,
+    "ma50": 29427.55,
+    "rsi": 53.1,
+    "macd_hist": 0.55
   }
 ]
