@@ -1,0 +1,50 @@
+name: Kolla marknadssignaler
+
+on:
+  schedule:
+    # Var 30:e minut, vardagar 07:00-22:00 UTC (ungefar svensk handelstid + Nasdaq-oppning)
+    - cron: "*/30 7-22 * * 1-5"
+  workflow_dispatch: {}   # gor att du kan klicka "Run workflow" manuellt for att testa
+
+permissions:
+  contents: write   # behovs for att skriva tillbaka state.json
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Installera paket
+        run: pip install -r requirements.txt
+
+      - name: Kor signalkontroll
+        env:
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+        run: python signal_check.py
+
+      - name: Spara state.json om det andrats
+        run: |
+          git config user.name "signal-bot"
+          git config user.email "signal-bot@users.noreply.github.com"
+          git add state.json
+          if git diff --staged --quiet; then
+            echo "Inget att spara"
+            exit 0
+          fi
+          git commit -m "Uppdatera state"
+          for i in 1 2 3 4 5; do
+            git pull --rebase origin main
+            if git push; then
+              echo "Push lyckades"
+              exit 0
+            fi
+            echo "Push misslyckades, forsoker igen om nagra sekunder..."
+            sleep $(( (RANDOM % 8) + 3 ))
+          done
+          echo "Kunde inte pusha efter flera forsok" >&2
+          exit 1
