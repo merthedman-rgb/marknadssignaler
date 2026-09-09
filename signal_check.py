@@ -16,7 +16,7 @@ import requests
 import yfinance as yf
 
 ASSETS = {
-    "guld": {"ticker": "GC=F", "label": "Guld", "unit": "$/oz"},
+    "guld": {"ticker": "XAUUSD=X", "label": "Guld", "unit": "$/oz"},
     "omx30": {"ticker": "^OMX", "label": "OMX Stockholm 30", "unit": "p"},
     "nasdaq": {"ticker": "^NDX", "label": "Nasdaq US Tech 100", "unit": "p"},
 }
