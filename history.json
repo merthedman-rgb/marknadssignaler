@@ -115,5 +115,18 @@
     "ma50": 4452.7,
     "rsi": 35.04,
     "macd_hist": -1.14
+  },
+  {
+    "time_utc": "2026-09-09 20:46",
+    "key": "guld",
+    "label": "Guld",
+    "from": "short",
+    "to": "neutral",
+    "price": 4446.2,
+    "unit": "$/oz",
+    "ma20": 4444.03,
+    "ma50": 4452.36,
+    "rsi": 49.39,
+    "macd_hist": 0.4
   }
 ]
