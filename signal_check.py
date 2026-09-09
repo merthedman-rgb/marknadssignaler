@@ -22,6 +22,8 @@ ASSETS = {
 }
 
 STATE_FILE = Path(__file__).parent / "state.json"
+HISTORY_FILE = Path(__file__).parent / "history.json"
+HISTORY_MAX_ENTRIES = 50
 NTFY_TOPIC = os.environ.get("NTFY_TOPIC")
 NTFY_URL = f"https://ntfy.sh/{NTFY_TOPIC}" if NTFY_TOPIC else None
 
@@ -68,6 +70,17 @@ def save_state(state: dict) -> None:
     STATE_FILE.write_text(json.dumps(state, indent=2, ensure_ascii=False))
 
 
+def load_history() -> list:
+    if HISTORY_FILE.exists():
+        return json.loads(HISTORY_FILE.read_text())
+    return []
+
+
+def save_history(history: list) -> None:
+    trimmed = history[-HISTORY_MAX_ENTRIES:]
+    HISTORY_FILE.write_text(json.dumps(trimmed, indent=2, ensure_ascii=False))
+
+
 def send_notification(title: str, message: str, priority: str = "default") -> None:
     if not NTFY_URL:
         print("NTFY_TOPIC saknas i miljon - hoppar over notis:", title, "|", message)
@@ -84,7 +97,10 @@ def send_notification(title: str, message: str, priority: str = "default") -> No
 
 
 def fetch_close_series(ticker: str) -> pd.Series | None:
-    df = yf.download(ticker, period="6mo", interval="1d", progress=False)
+    # 5-minuters-candlar, senaste 5 dagarna - yfinance tillater max ~60 dagars
+    # historik for 5-minutersdata, men vi behover bara ett hundratal candlar
+    # for MA20/MA50 att fa nog historik.
+    df = yf.download(ticker, period="5d", interval="5m", progress=False)
     if df is None or df.empty:
         return None
     close = df["Close"]
@@ -96,6 +112,7 @@ def fetch_close_series(ticker: str) -> pd.Series | None:
 def run(fetch_fn=fetch_close_series) -> list[tuple]:
     """Kor hela kontrollen. fetch_fn kan bytas ut i tester."""
     state = load_state()
+    history = load_history()
     changes = []
 
     for key, meta in ASSETS.items():
@@ -112,14 +129,29 @@ def run(fetch_fn=fetch_close_series) -> list[tuple]:
         prev_signal = prev_entry.get("signal")
         now_str = pd.Timestamp.utcnow().strftime("%Y-%m-%d %H:%M")
 
+        def safe(x):
+            return None if pd.isna(x) else round(float(x), 2)
+
+        m20, m50, r, h = safe(ma20.iloc[-1]), safe(ma50.iloc[-1]), safe(rsi.iloc[-1]), safe(hist.iloc[-1])
+
         if signal != prev_signal:
             changes.append((meta["label"], prev_signal, signal, price, meta["unit"]))
             signal_since = now_str
+            history.append({
+                "time_utc": now_str,
+                "key": key,
+                "label": meta["label"],
+                "from": prev_signal,
+                "to": signal,
+                "price": round(price, 2),
+                "unit": meta["unit"],
+                "ma20": m20,
+                "ma50": m50,
+                "rsi": r,
+                "macd_hist": h,
+            })
         else:
             signal_since = prev_entry.get("signal_since", now_str)
-
-        def safe(x):
-            return None if pd.isna(x) else round(float(x), 2)
 
         state[key] = {
             "label": meta["label"],
@@ -127,14 +159,15 @@ def run(fetch_fn=fetch_close_series) -> list[tuple]:
             "signal_since": signal_since,
             "price": round(price, 2),
             "unit": meta["unit"],
-            "ma20": safe(ma20.iloc[-1]),
-            "ma50": safe(ma50.iloc[-1]),
-            "rsi": safe(rsi.iloc[-1]),
-            "macd_hist": safe(hist.iloc[-1]),
+            "ma20": m20,
+            "ma50": m50,
+            "rsi": r,
+            "macd_hist": h,
             "updated_utc": now_str,
         }
 
     save_state(state)
+    save_history(history)
 
     for label, prev, new, price, unit in changes:
         title = f"{label}: {new.upper()}"
