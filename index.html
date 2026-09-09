@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marknadssignaler — Guld, OMX30 & Nasdaq</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #15171c;
+    --bg-2: #1c1f26;
+    --panel: #1e2128;
+    --panel-2: #23262e;
+    --hairline: #2c2f37;
+    --text: #ecedee;
+    --text-muted: #8b8d96;
+    --gold: #c3a057;
+    --silver: #a8afb8;
+    --index: #6b8fb5;
+    --long: #5b9e6f;
+    --short: #b85c52;
+    --neutral: #8b8d96;
+  }
+  *{ box-sizing: border-box; }
+  html, body{
+    margin:0; padding:0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap{ max-width: 920px; margin: 0 auto; padding: 0 0 48px; }
+
+  .masthead{
+    padding: 28px 20px 20px;
+    border-bottom: 1px solid var(--hairline);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .masthead h1{
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: clamp(26px, 5vw, 36px);
+    letter-spacing: -0.01em;
+    margin: 0 0 6px;
+    line-height: 1.15;
+  }
+  .masthead p{
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 14px;
+    max-width: 56ch;
+    line-height: 1.5;
+  }
+  .updated{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--text-muted);
+    white-space: nowrap;
+    padding-top: 4px;
+  }
+
+  .panels{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1px;
+    background: var(--hairline);
+    margin-top: 1px;
+  }
+  .panel{
+    background: var(--panel);
+    padding: 24px 20px;
+  }
+  .panel-head{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 14px;
+  }
+  .asset-name{
+    font-family: 'Fraunces', serif;
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0 0 4px;
+  }
+  .asset-sub{ color: var(--text-muted); font-size: 13px; }
+  .price-block{ text-align: right; }
+  .price{ font-family: 'JetBrains Mono', monospace; font-size: 22px; font-weight: 500; }
+
+  .signal-badge{
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    padding: 5px 10px;
+    border-radius: 3px;
+    border: 1px solid currentColor;
+    margin-bottom: 16px;
+  }
+  .signal-dot{ width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+  .sig-long{ color: var(--long); }
+  .sig-short{ color: var(--short); }
+  .sig-neutral{ color: var(--neutral); }
+
+  .indicators{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+  .ind{
+    background: var(--panel-2);
+    border: 1px solid var(--hairline);
+    padding: 10px 12px;
+    border-radius: 3px;
+  }
+  .ind-label{ font-size: 11px; color: var(--text-muted); margin-bottom: 4px; }
+  .ind-value{ font-family: 'JetBrains Mono', monospace; font-size: 14px; }
+  .rsi-bar{
+    margin-top: 6px; height: 4px; background: var(--hairline);
+    border-radius: 2px; position: relative; overflow: hidden;
+  }
+  .rsi-fill{ position: absolute; top:0; left:0; bottom:0; background: var(--index); }
+
+  @media (min-width: 720px){ .panels{ grid-template-columns: repeat(3, 1fr); } }
+
+  .reasoning{
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid var(--hairline);
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--text-muted);
+  }
+  .reasoning b{ color: var(--text); font-weight: 500; }
+  .since{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+
+  .live-dot{
+    display: inline-block;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--long);
+    margin-right: 6px;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse{
+    0%, 100%{ opacity: 1; }
+    50%{ opacity: 0.35; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .live-dot{ animation: none; }
+  }
+
+  .footer{ padding: 22px 20px 0; color: var(--text-muted); font-size: 13px; line-height: 1.6; }
+  .footer p{ margin: 0 0 10px; max-width: 62ch; }
+
+  .log-section{ margin-top: 1px; }
+  .log-heading{
+    padding: 20px 20px 0;
+    font-family: 'Fraunces', serif;
+    font-size: 17px;
+    font-weight: 600;
+  }
+  .log-list{ padding: 8px 20px 4px; }
+  .log-row{
+    display: flex;
+    justify-content: space-between;
+    gap: 14px;
+    align-items: baseline;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--hairline);
+    font-size: 13px;
+  }
+  .log-row:last-child{ border-bottom: none; }
+  .log-left{ display: flex; flex-direction: column; gap: 2px; }
+  .log-asset{ font-family: 'Fraunces', serif; font-weight: 600; font-size: 14px; }
+  .log-detail{ color: var(--text-muted); }
+  .log-time{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--text-muted);
+    white-space: nowrap;
+  }
+  .log-empty{ color: var(--text-muted); font-size: 13px; padding: 4px 0 16px; }
+
+  .state-msg{
+    padding: 40px 20px;
+    color: var(--text-muted);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="masthead">
+    <div>
+      <h1>Marknadssignaler</h1>
+      <p>Live-läge för guld, OMX30 och Nasdaq US Tech 100, baserat på MA20/MA50, RSI(14) och MACD.</p>
+    </div>
+    <div class="updated"><span class="live-dot"></span><span id="updatedAt"></span></div>
+  </div>
+
+  <div id="panels"><div class="state-msg">Hämtar senaste data …</div></div>
+
+  <div class="log-section">
+    <p class="log-heading">Senaste uppdateringar</p>
+    <div class="log-list" id="logList"></div>
+  </div>
+
+  <div class="footer">
+    <p>Läget uppdateras automatiskt av ett schemalagt jobb ungefär var 30:e minut på vardagar. Det här är ett tekniskt underlag, inte investeringsrådgivning.</p>
+  </div>
+</div>
+
+<script>
+function signalLabel(s){ return s==='long' ? 'LONG' : s==='short' ? 'SHORT' : 'NEUTRAL'; }
+function signalClass(s){ return s==='long' ? 'sig-long' : s==='short' ? 'sig-short' : 'sig-neutral'; }
+function fmt(n){ return n===null || n===undefined ? '–' : n.toLocaleString('sv-SE', {minimumFractionDigits:2, maximumFractionDigits:2}); }
+
+const COLORS = { guld: 'var(--gold)', omx30: 'var(--silver)', nasdaq: 'var(--index)' };
+const REFRESH_MS = 60000; // hämta ny data varje minut
+
+function explain(a){
+  const { ma20, ma50, rsi, macd_hist: hist, signal } = a;
+  if([ma20, ma50, rsi, hist].some(v => v===null || v===undefined)){
+    return 'Inte tillräckligt med historik ännu för en fullständig beräkning.';
+  }
+  const trendUp = ma20 > ma50;
+  const trendDown = ma20 < ma50;
+  const trendTxt = trendUp
+    ? `MA20 (${fmt(ma20)}) ligger <b>över</b> MA50 (${fmt(ma50)}) — uppåttrend`
+    : trendDown
+      ? `MA20 (${fmt(ma20)}) ligger <b>under</b> MA50 (${fmt(ma50)}) — nedåttrend`
+      : `MA20 och MA50 ligger ungefär lika — ingen tydlig trend`;
+  const macdTxt = hist >= 0 ? `MACD-histogram är positivt (${fmt(hist)})` : `MACD-histogram är negativt (${fmt(hist)})`;
+
+  if(signal === 'long'){
+    return `${trendTxt}. RSI (${fmt(rsi)}) är under 70-taket. ${macdTxt}. <b>Alla tre villkor för LONG är uppfyllda.</b>`;
+  }
+  if(signal === 'short'){
+    return `${trendTxt}. RSI (${fmt(rsi)}) är över 30-golvet. ${macdTxt}. <b>Alla tre villkor för SHORT är uppfyllda.</b>`;
+  }
+
+  // neutral — förklara vad som saknades
+  if(trendUp){
+    const missing = [];
+    if(!(rsi < 70)) missing.push(`RSI (${fmt(rsi)}) är över 70 — för överköpt för LONG`);
+    if(!(hist >= 0)) missing.push(`MACD-histogram är negativt (${fmt(hist)}) trots uppåttrenden`);
+    return `${trendTxt}, men ${missing.join(' och ')}. Därför <b>NEUTRAL</b> istället för LONG.`;
+  }
+  if(trendDown){
+    const missing = [];
+    if(!(rsi > 30)) missing.push(`RSI (${fmt(rsi)}) är under 30 — för översåld för SHORT`);
+    if(!(hist < 0)) missing.push(`MACD-histogram är positivt (${fmt(hist)}) trots nedåttrenden`);
+    return `${trendTxt}, men ${missing.join(' och ')}. Därför <b>NEUTRAL</b> istället för SHORT.`;
+  }
+  return `${trendTxt}. Ingen tydlig riktning just nu — därför <b>NEUTRAL</b>.`;
+}
+
+async function load(){
+  try{
+    const res = await fetch('./state.json', { cache: 'no-store' });
+    if(!res.ok) throw new Error('state.json hittades inte (' + res.status + ')');
+    const state = await res.json();
+    render(state);
+  }catch(err){
+    document.getElementById('panels').innerHTML =
+      `<div class="state-msg">Kunde inte läsa state.json: ${err.message}<br>Kontrollera att filen ligger i samma repo/mapp som den här sidan.</div>`;
+  }
+}
+
+function render(state){
+  const keys = Object.keys(state);
+  if(keys.length === 0){
+    document.getElementById('panels').innerHTML = '<div class="state-msg">state.json är tom ännu — kör workflowen minst en gång.</div>';
+    return;
+  }
+
+  let latest = null;
+  const panels = document.getElementById('panels');
+  panels.innerHTML = keys.map(key => {
+    const a = state[key];
+    if(a.updated_utc && (!latest || a.updated_utc > latest)) latest = a.updated_utc;
+    const rsiPct = a.rsi!==null && a.rsi!==undefined ? Math.max(0, Math.min(100, a.rsi)) : 50;
+    const color = COLORS[key] || 'var(--index)';
+    const displayPrice = (a.spot_price !== undefined && a.spot_price !== null) ? a.spot_price : a.price;
+    const priceNote = (a.spot_price !== undefined && a.spot_price !== null)
+      ? `Spot/cash-pris, uppdaterat ${a.spot_checked_utc || '–'} UTC · signal beräknad på terminspris`
+      : `Uppdaterad ${a.updated_utc || '–'} UTC`;
+
+    return `
+    <div class="panel">
+      <div class="panel-head">
+        <div>
+          <p class="asset-name" style="color:${color}">${a.label || key}</p>
+          <p class="asset-sub">${priceNote}</p>
+        </div>
+        <div class="price-block">
+          <div class="price">${fmt(displayPrice)}${a.unit || ''}</div>
+        </div>
+      </div>
+
+      <span class="signal-badge ${signalClass(a.signal)}"><span class="signal-dot"></span>${signalLabel(a.signal)}</span>
+      <div class="since">${a.signal_since ? 'Läge sedan ' + a.signal_since + ' UTC' : ''}</div>
+
+      <div class="indicators" style="margin-top:14px">
+        <div class="ind">
+          <div class="ind-label">MA20 / MA50</div>
+          <div class="ind-value">${fmt(a.ma20)} / ${fmt(a.ma50)}</div>
+        </div>
+        <div class="ind">
+          <div class="ind-label">RSI (14)</div>
+          <div class="ind-value">${fmt(a.rsi)}</div>
+          <div class="rsi-bar"><div class="rsi-fill" style="width:${rsiPct}%"></div></div>
+        </div>
+        <div class="ind">
+          <div class="ind-label">MACD-hist.</div>
+          <div class="ind-value">${a.macd_hist!==null && a.macd_hist!==undefined ? (a.macd_hist>=0?'+':'') + fmt(a.macd_hist) : '–'}</div>
+        </div>
+      </div>
+
+      <div class="reasoning">${explain(a)}</div>
+    </div>`;
+  }).join('');
+
+  document.getElementById('updatedAt').textContent = latest ? `Senast uppdaterad ${latest} UTC` : '';
+}
+
+load();
+setInterval(load, REFRESH_MS);
+
+function signalWord(s){
+  return s==='long' ? 'LONG' : s==='short' ? 'SHORT' : s===null || s===undefined ? 'okänt' : 'NEUTRAL';
+}
+
+async function loadHistory(){
+  try{
+    const res = await fetch('./history.json', { cache: 'no-store' });
+    if(!res.ok) throw new Error('saknas');
+    const history = await res.json();
+    renderHistory(history);
+  }catch(err){
+    document.getElementById('logList').innerHTML = '<div class="log-empty">Ingen historik ännu.</div>';
+  }
+}
+
+function renderHistory(history){
+  const list = document.getElementById('logList');
+  if(!history || history.length === 0){
+    list.innerHTML = '<div class="log-empty">Inga lägesbyten loggade ännu.</div>';
+    return;
+  }
+  const rows = [...history].reverse().slice(0, 20).map(h => {
+    const detail = `${signalWord(h.from)} → <b style="color:var(--text)">${signalWord(h.to)}</b> · pris ${h.price}${h.unit || ''} · RSI ${h.rsi ?? '–'} · MACD-hist ${h.macd_hist ?? '–'}`;
+    return `
+    <div class="log-row">
+      <div class="log-left">
+        <div class="log-asset">${h.label || h.key}</div>
+        <div class="log-detail">${detail}</div>
+      </div>
+      <div class="log-time">${h.time_utc} UTC</div>
+    </div>`;
+  }).join('');
+  list.innerHTML = rows;
+}
+
+loadHistory();
+setInterval(loadHistory, REFRESH_MS);
+</script>
+
+</body>
+</html>
