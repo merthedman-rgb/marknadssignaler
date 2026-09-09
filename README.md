@@ -45,6 +45,7 @@ länk till den:
 - `requirements.txt` — de fyra Python-paket som behovs.
 - `.github/workflows/check-signals.yml` — schemat som kor scriptet automatiskt.
 - `state.json` — tom fran borjan, fylls i automatiskt.
+- `history.json` — tom lista fran borjan; fylls pa med varje lagesbyte (max 50 senaste), sa sidan kan visa "Senaste uppdateringar".
 
 ## Det du behover gora (cirka 15-20 minuter, en gang)
 
