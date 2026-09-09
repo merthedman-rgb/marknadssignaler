@@ -1,1 +1,38 @@
-{}
+{
+  "guld": {
+    "label": "Guld",
+    "signal": "neutral",
+    "signal_since": "2026-09-09 16:22",
+    "price": 4440.8,
+    "unit": "$/oz",
+    "ma20": 4471.65,
+    "ma50": 4253.66,
+    "rsi": 53.0,
+    "macd_hist": -24.06,
+    "updated_utc": "2026-09-09 16:22"
+  },
+  "omx30": {
+    "label": "OMX Stockholm 30",
+    "signal": "neutral",
+    "signal_since": "2026-09-09 16:22",
+    "price": 3258.36,
+    "unit": "p",
+    "ma20": 3284.77,
+    "ma50": 3246.23,
+    "rsi": 46.61,
+    "macd_hist": -5.54,
+    "updated_utc": "2026-09-09 16:22"
+  },
+  "nasdaq": {
+    "label": "Nasdaq US Tech 100",
+    "signal": "neutral",
+    "signal_since": "2026-09-09 16:22",
+    "price": 29371.88,
+    "unit": "p",
+    "ma20": 29471.16,
+    "ma50": 29228.83,
+    "rsi": 50.55,
+    "macd_hist": -7.56,
+    "updated_utc": "2026-09-09 16:22"
+  }
+}
