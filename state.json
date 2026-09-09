@@ -21,18 +21,18 @@
     "ma50": 3262.32,
     "rsi": 46.74,
     "macd_hist": 0.2,
-    "updated_utc": "2026-09-09 18:42"
+    "updated_utc": "2026-09-09 18:51"
   },
   "nasdaq": {
     "label": "Nasdaq US Tech 100",
     "signal": "long",
     "signal_since": "2026-09-09 18:42",
-    "price": 29440.22,
+    "price": 29439.35,
     "unit": "p",
-    "ma20": 29433.71,
-    "ma50": 29427.55,
-    "rsi": 53.1,
-    "macd_hist": 0.55,
-    "updated_utc": "2026-09-09 18:42"
+    "ma20": 29433.21,
+    "ma50": 29425.06,
+    "rsi": 52.6,
+    "macd_hist": 0.93,
+    "updated_utc": "2026-09-09 18:51"
   }
 }
