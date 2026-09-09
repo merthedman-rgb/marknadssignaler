@@ -9,7 +9,7 @@
     "ma50": 4452.3,
     "rsi": 47.27,
     "macd_hist": 0.55,
-    "updated_se": "2026-09-09 22:50",
+    "updated_se": "2026-09-09 22:51",
     "spot_price": 4399.84,
     "spot_checked_se": "2026-09-09 22:50"
   },
@@ -23,7 +23,7 @@
     "ma50": 3262.32,
     "rsi": 46.74,
     "macd_hist": 0.2,
-    "updated_se": "2026-09-09 22:50"
+    "updated_se": "2026-09-09 22:51"
   },
   "nasdaq": {
     "label": "Nasdaq US Tech 100",
@@ -35,6 +35,6 @@
     "ma50": 29424.96,
     "rsi": 49.88,
     "macd_hist": -0.8,
-    "updated_se": "2026-09-09 22:50"
+    "updated_se": "2026-09-09 22:51"
   }
 }
