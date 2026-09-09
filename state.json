@@ -3,13 +3,13 @@
     "label": "Guld",
     "signal": "neutral",
     "signal_since": "2026-09-09 16:22",
-    "price": 4447.4,
+    "price": 4458.5,
     "unit": "$/oz",
-    "ma20": 4471.98,
-    "ma50": 4253.79,
-    "rsi": 53.4,
-    "macd_hist": -23.64,
-    "updated_utc": "2026-09-09 16:43"
+    "ma20": 4472.53,
+    "ma50": 4254.01,
+    "rsi": 54.07,
+    "macd_hist": -22.93,
+    "updated_utc": "2026-09-09 17:12"
   },
   "omx30": {
     "label": "OMX Stockholm 30",
@@ -21,18 +21,18 @@
     "ma50": 3246.23,
     "rsi": 46.61,
     "macd_hist": -5.54,
-    "updated_utc": "2026-09-09 16:43"
+    "updated_utc": "2026-09-09 17:12"
   },
   "nasdaq": {
     "label": "Nasdaq US Tech 100",
     "signal": "neutral",
     "signal_since": "2026-09-09 16:22",
-    "price": 29416.51,
+    "price": 29436.3,
     "unit": "p",
-    "ma20": 29473.39,
-    "ma50": 29229.72,
-    "rsi": 51.31,
-    "macd_hist": -4.71,
-    "updated_utc": "2026-09-09 16:43"
+    "ma20": 29474.38,
+    "ma50": 29230.12,
+    "rsi": 51.66,
+    "macd_hist": -3.44,
+    "updated_utc": "2026-09-09 17:12"
   }
 }
