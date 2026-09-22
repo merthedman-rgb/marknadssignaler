@@ -368,5 +368,20 @@
     "macd_hist": -0.72,
     "volume_ok": false,
     "daily_trend": "up"
+  },
+  {
+    "time_se": "2026-09-22 21:58",
+    "key": "nasdaq",
+    "label": "Nasdaq US Tech 100",
+    "from": "neutral",
+    "to": "long",
+    "price": 30732.41,
+    "unit": "p",
+    "ma20": 30711.13,
+    "ma50": 30668.17,
+    "rsi": 60.47,
+    "macd_hist": 1.46,
+    "volume_ok": true,
+    "daily_trend": "up"
   }
 ]
