@@ -9,14 +9,14 @@
     "ma50": 4324.23,
     "rsi": 39.68,
     "macd_hist": -0.74,
-    "volume_ok": false,
+    "volume_ok": true,
     "daily_trend": "up",
     "atr": 2.63,
     "stop": null,
     "target": null,
     "macro_trend": "down",
     "macro_note": "Dollarn försvagas (DXY i nedåttrend) — historiskt medvind för guld.",
-    "updated_se": "2026-09-25 23:25",
+    "updated_se": "2026-09-25 23:44",
     "spot_price": 4284.58,
     "spot_checked_se": "2026-09-25 23:25"
   },
@@ -37,7 +37,7 @@
     "target": null,
     "macro_trend": "up",
     "macro_note": "Amerikanska 10-årsräntan stiger — historiskt motvind för aktier.",
-    "updated_se": "2026-09-25 23:25"
+    "updated_se": "2026-09-25 23:44"
   },
   "nasdaq": {
     "label": "Nasdaq US Tech 100",
@@ -56,6 +56,6 @@
     "target": null,
     "macro_trend": "up",
     "macro_note": "Amerikanska 10-årsräntan stiger — historiskt motvind för aktier.",
-    "updated_se": "2026-09-25 23:25"
+    "updated_se": "2026-09-25 23:44"
   }
 }
