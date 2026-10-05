@@ -548,5 +548,20 @@
     "macd_hist": -0.77,
     "volume_ok": false,
     "daily_trend": "down"
+  },
+  {
+    "time_se": "2026-10-05 16:14",
+    "key": "guld",
+    "label": "Guld",
+    "from": "neutral",
+    "to": "short",
+    "price": 4170.6,
+    "unit": "$/oz",
+    "ma20": 4179.17,
+    "ma50": 4183.74,
+    "rsi": 38.99,
+    "macd_hist": -1.33,
+    "volume_ok": true,
+    "daily_trend": "down"
   }
 ]
