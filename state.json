@@ -3,22 +3,22 @@
     "label": "Guld",
     "signal": "neutral",
     "signal_since": "2026-10-05 16:40",
-    "price": 4191.4,
+    "price": 4192.7,
     "unit": "$/oz",
-    "ma20": 4195.36,
-    "ma50": 4194.55,
-    "rsi": 38.39,
-    "macd_hist": -0.71,
+    "ma20": 4194.92,
+    "ma50": 4194.73,
+    "rsi": 43.33,
+    "macd_hist": -0.48,
     "volume_ok": false,
     "daily_trend": "down",
-    "atr": 2.22,
+    "atr": 2.29,
     "stop": null,
     "target": null,
     "macro_trend": "up",
     "macro_note": "Dollarn stärks (DXY i uppåttrend) — historiskt motvind för guld.",
-    "updated_se": "2026-10-06 23:00",
-    "spot_price": 4162.72,
-    "spot_checked_se": "2026-10-06 22:47"
+    "updated_se": "2026-10-06 23:22",
+    "spot_price": 4163.55,
+    "spot_checked_se": "2026-10-06 23:22"
   },
   "omx30": {
     "label": "OMX Stockholm 30",
@@ -37,7 +37,7 @@
     "target": null,
     "macro_trend": "up",
     "macro_note": "Amerikanska 10-årsräntan stiger — historiskt motvind för aktier.",
-    "updated_se": "2026-10-06 23:00"
+    "updated_se": "2026-10-06 23:22"
   },
   "nasdaq": {
     "label": "Nasdaq US Tech 100",
@@ -56,6 +56,6 @@
     "target": null,
     "macro_trend": "up",
     "macro_note": "Amerikanska 10-årsräntan stiger — historiskt motvind för aktier.",
-    "updated_se": "2026-10-06 23:00"
+    "updated_se": "2026-10-06 23:22"
   }
 }
