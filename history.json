@@ -1,19 +1,6 @@
 [
   {
     "time_utc": "2026-09-09 18:33",
-    "key": "omx30",
-    "label": "OMX Stockholm 30",
-    "from": null,
-    "to": "neutral",
-    "price": 3258.43,
-    "unit": "p",
-    "ma20": 3259.12,
-    "ma50": 3262.32,
-    "rsi": 46.74,
-    "macd_hist": 0.2
-  },
-  {
-    "time_utc": "2026-09-09 18:33",
     "key": "nasdaq",
     "label": "Nasdaq US Tech 100",
     "from": null,
@@ -729,6 +716,21 @@
     "rsi": 62.78,
     "macd_hist": 5.2,
     "volume_ok": true,
+    "daily_trend": "up"
+  },
+  {
+    "time_se": "2026-10-16 18:46",
+    "key": "nasdaq",
+    "label": "Nasdaq US Tech 100",
+    "from": "long",
+    "to": "neutral",
+    "price": 29439.19,
+    "unit": "p",
+    "ma20": 29480.45,
+    "ma50": 29647.74,
+    "rsi": 35.58,
+    "macd_hist": 5.0,
+    "volume_ok": false,
     "daily_trend": "up"
   }
 ]
