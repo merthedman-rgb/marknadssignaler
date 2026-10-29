@@ -1,18 +1,5 @@
 [
   {
-    "time_utc": "2026-09-09 18:42",
-    "key": "nasdaq",
-    "label": "Nasdaq US Tech 100",
-    "from": "neutral",
-    "to": "long",
-    "price": 29440.22,
-    "unit": "p",
-    "ma20": 29433.71,
-    "ma50": 29427.55,
-    "rsi": 53.1,
-    "macd_hist": 0.55
-  },
-  {
     "time_utc": "2026-09-09 18:59",
     "key": "guld",
     "label": "Guld",
@@ -733,6 +720,21 @@
     "rsi": 66.72,
     "macd_hist": 7.13,
     "volume_ok": true,
+    "daily_trend": "up"
+  },
+  {
+    "time_se": "2026-10-29 15:02",
+    "key": "nasdaq",
+    "label": "Nasdaq US Tech 100",
+    "from": "long",
+    "to": "neutral",
+    "price": 29442.48,
+    "unit": "p",
+    "ma20": 29611.33,
+    "ma50": 29667.4,
+    "rsi": 40.67,
+    "macd_hist": -32.68,
+    "volume_ok": false,
     "daily_trend": "up"
   }
 ]
