@@ -1,18 +1,5 @@
 [
   {
-    "time_utc": "2026-09-09 19:07",
-    "key": "nasdaq",
-    "label": "Nasdaq US Tech 100",
-    "from": "long",
-    "to": "neutral",
-    "price": 29412.62,
-    "unit": "p",
-    "ma20": 29430.19,
-    "ma50": 29419.96,
-    "rsi": 44.23,
-    "macd_hist": -2.18
-  },
-  {
     "time_utc": "2026-09-09 19:24",
     "key": "nasdaq",
     "label": "Nasdaq US Tech 100",
@@ -737,6 +724,21 @@
     "rsi": 42.42,
     "macd_hist": -3.33,
     "volume_ok": true,
+    "daily_trend": "down"
+  },
+  {
+    "time_se": "2026-11-05 16:18",
+    "key": "nasdaq",
+    "label": "Nasdaq US Tech 100",
+    "from": "short",
+    "to": "neutral",
+    "price": 27233.52,
+    "unit": "p",
+    "ma20": 27961.89,
+    "ma50": 28309.24,
+    "rsi": 9.48,
+    "macd_hist": -83.78,
+    "volume_ok": false,
     "daily_trend": "down"
   }
 ]
