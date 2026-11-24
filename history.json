@@ -1,20 +1,5 @@
 [
   {
-    "time_se": "2026-09-16 12:18",
-    "key": "guld",
-    "label": "Guld",
-    "from": "neutral",
-    "to": "long",
-    "price": 4381.3,
-    "unit": "$/oz",
-    "ma20": 4372.83,
-    "ma50": 4371.38,
-    "rsi": 66.87,
-    "macd_hist": 0.96,
-    "volume_ok": true,
-    "daily_trend": "up"
-  },
-  {
     "time_se": "2026-09-16 12:35",
     "key": "guld",
     "label": "Guld",
@@ -747,6 +732,21 @@
     "rsi": 54.03,
     "macd_hist": -8.2,
     "volume_ok": false,
+    "daily_trend": "down"
+  },
+  {
+    "time_se": "2026-11-24 05:17",
+    "key": "nasdaq",
+    "label": "Nasdaq US Tech 100",
+    "from": "neutral",
+    "to": "short",
+    "price": 26745.64,
+    "unit": "p",
+    "ma20": 26748.69,
+    "ma50": 26753.48,
+    "rsi": 49.0,
+    "macd_hist": -0.65,
+    "volume_ok": true,
     "daily_trend": "down"
   }
 ]
