@@ -16,9 +16,9 @@
     "target": null,
     "macro_trend": "up",
     "macro_note": "Dollarn stärks (DXY i uppåttrend) — historiskt motvind för guld.",
-    "updated_se": "2026-11-26 18:38",
-    "spot_price": 3569.98,
-    "spot_checked_se": "2026-11-26 18:38"
+    "updated_se": "2026-11-27 02:09",
+    "spot_price": 3560.29,
+    "spot_checked_se": "2026-11-27 02:09"
   },
   "omx30": {
     "label": "OMX Stockholm 30",
@@ -37,7 +37,7 @@
     "target": null,
     "macro_trend": "down",
     "macro_note": "Amerikanska 10-årsräntan faller — historiskt medvind för aktier.",
-    "updated_se": "2026-11-26 18:38"
+    "updated_se": "2026-11-27 02:09"
   },
   "nasdaq": {
     "label": "Nasdaq US Tech 100",
@@ -56,6 +56,6 @@
     "target": null,
     "macro_trend": "down",
     "macro_note": "Amerikanska 10-årsräntan faller — historiskt medvind för aktier.",
-    "updated_se": "2026-11-26 18:38"
+    "updated_se": "2026-11-27 02:09"
   }
 }
